@@ -1,0 +1,24 @@
+name:OWASP ZAP Scan
+on:pull_request
+branches:
+-main # trigger ZAP scan on PR targetting the main branch
+push:
+branches:
+-main # trigger on push to the 'main' branch
+workflow_dispatch :# Allow manual triggering of the workflow
+permissions:
+issues:write
+jobs:
+zap:scan:
+runs-on:ubuntu-latest
+steps:
+checkout the repository
+-name:checkout repository
+uses:actions/checkout@v2
+# Run ZAPScan
+-name:ZAP Scan
+uses:zaproxy/action-baseline@v0.14.0
+with
+target:https://'medium.com/'
+token:${{secrets.GITHUB_token}}
+
